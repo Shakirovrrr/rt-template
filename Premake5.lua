@@ -99,7 +99,6 @@ group "03. Lighting"
       links "Lighting lib"
       debugargs { "--benchmark-samples", "25" }
       files {"tests/lighting_tests.cpp"}
---]]
 
 group "04. Shadow rays"
    project "ShadowRays lib"
@@ -130,8 +129,8 @@ group "04. Shadow rays"
       links "ShadowRays lib"
       debugargs { "--benchmark-samples", "25" }
       files {"tests/shadow_rays_tests.cpp"}
+--]]
 
---[[
 group "05. Reflection"
    project "Reflection lib"
       kind "StaticLib"
@@ -163,6 +162,7 @@ group "05. Reflection"
       debugargs { "--benchmark-samples", "25" }
       files {"tests/reflection_tests.cpp"}
 
+--[[
 group "06. Refraction"
    project "Refraction lib"
       kind "StaticLib"
