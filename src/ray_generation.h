@@ -10,8 +10,7 @@ using namespace linalg::ostream_overloads;
 
 #include <iostream>
 
-class Ray
-{
+class Ray {
 public:
 	Ray(float3 position, float3 direction) : position(position) {
 		this->direction = normalize(direction);
@@ -21,17 +20,16 @@ public:
 	float3 direction;
 };
 
-class Payload
-{
+class Payload {
 public:
-	Payload() { color = float3{ 0, 0, 0 };};
+	Payload() { color = float3 {0, 0, 0}; };
+	Payload(float3 color) { this->color = color; };
 	~Payload() {};
 	float3 color;
 };
 
 
-class Camera
-{
+class Camera {
 public:
 	Camera();
 	~Camera();
@@ -56,8 +54,7 @@ private:
 
 
 
-class RayGenerationApp
-{
+class RayGenerationApp {
 public:
 	RayGenerationApp(short width, short height);
 	virtual ~RayGenerationApp();
@@ -70,9 +67,9 @@ public:
 	std::vector<byte3> GetFrameBuffer() const { return frame_buffer; }
 protected:
 	void SetPixel(const unsigned short x, const unsigned short y, const float3 color);
-	virtual Payload TraceRay(const Ray& ray, const unsigned int max_raytrace_depth) const;
+	virtual Payload TraceRay(const Ray &ray, const unsigned int max_raytrace_depth) const;
 
-	virtual Payload Miss(const Ray& ray) const;
+	virtual Payload Miss(const Ray &ray) const;
 
 	short width;
 	short height;
