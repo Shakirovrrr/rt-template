@@ -70,7 +70,6 @@ int Lighting::LoadGeometry(std::string filename) {
 			index_offset += fv;
 
 			MaterialTriangle *triangle = new MaterialTriangle(vertices[0], vertices[1], vertices[2]);
-			// objects.push_back(triangle);
 
 			int materialId = shapes[s].mesh.material_ids[f];
 			tinyobj::material_t material = materials[materialId];
@@ -85,18 +84,20 @@ int Lighting::LoadGeometry(std::string filename) {
 			material_objects.push_back(triangle);
 
 			// per-face material
-			shapes[s].mesh.material_ids[f];
+			// shapes[s].mesh.material_ids[f];
 		}
 	}
 
 	return 0;
 }
 
-void Lighting::AddLight(Light *light) {}
+void Lighting::AddLight(Light *light) {
+	lights.push_back(light);
+}
 
 Payload Lighting::TraceRay(const Ray &ray, const unsigned int max_raytrace_depth) const {
 	IntersectableData closestData(t_max);
-	MaterialTriangle *closestTriangle;
+	MaterialTriangle *closestTriangle = nullptr;
 	for (auto &object : material_objects) {
 		IntersectableData data = object->Intersect(ray);
 		if (data.t < closestData.t && data.t > t_min) {
@@ -118,15 +119,32 @@ Payload Lighting::Hit(const Ray &ray, const IntersectableData &data, const Mater
 		return Miss(ray);
 	}
 
-	return Payload(triangle->ambient_color);
+	Payload payload;
+	payload.color = triangle->emissive_color;
+
+	float3 x = ray.position + ray.direction * data.t;
+	float3 normal = triangle->GetNormal(data.baricentric);
+
+	for (auto const &light : lights) {
+		Ray toLight(x, light->position - x);
+
+		payload.color += light->color * triangle->diffuse_color 
+			* std::max(0.0f, linalg::dot(normal, toLight.direction));
+
+		float3 reflectionDir = 2.0f * linalg::dot(normal, toLight.direction) * normal - toLight.direction;
+		payload.color += light->color * triangle->specular_color 
+			* std::powf(std::max(0.0f, linalg::dot(ray.direction, reflectionDir)), triangle->specular_exponent);
+	}
+
+	return payload;
 }
 
 float3 MaterialTriangle::GetNormal(float3 barycentric) const {
-	if (linalg::length(a.normal) > 0.0f && linalg::length(b.normal) > 0.0f && linalg::length(c.normal)) {
+	if (linalg::length(a.normal) > 0.0f && linalg::length(b.normal) > 0.0f && linalg::length(c.normal) > 0.0f) {
 		return a.normal * barycentric.x
 			+ b.normal * barycentric.y
 			+ c.normal * barycentric.z;
 	}
 
-	return float3 {0,0,0};
+	return geo_normal;
 }
