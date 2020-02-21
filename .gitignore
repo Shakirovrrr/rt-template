@@ -3,7 +3,10 @@
 bin/
 obj/
 results/
+lib/
 
 *.sln
 *.vcxproj
 *.vcxproj.user
+
+premake5.exe
