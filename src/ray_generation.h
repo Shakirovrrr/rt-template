@@ -6,8 +6,6 @@ using namespace linalg::ostream_overloads;
 
 #include <string>
 #include <vector>
-
-
 #include <iostream>
 
 class Ray {

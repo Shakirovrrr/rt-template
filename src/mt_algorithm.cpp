@@ -62,7 +62,8 @@ Payload MTAlgorithm::TraceRay(const Ray &ray, const unsigned int max_raytrace_de
 
 Payload MTAlgorithm::Hit(const Ray &ray, const IntersectableData &data) const {
 	Payload payload;
-	payload.color = float3 {1, 0, 0};
+	// payload.color = float3 {1, 0, 0};
+	payload.color = data.baricentric;
 	return payload;
 }
 

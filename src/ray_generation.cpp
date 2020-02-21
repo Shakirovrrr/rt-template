@@ -22,8 +22,9 @@ void RayGenerationApp::Clear() {
 }
 
 void RayGenerationApp::DrawScene() {
-	for (unsigned short x = 0; x < width; x++) {
-		for (unsigned short y = 0; y < height; y++) {
+	for (unsigned int x = 0; x < width; x++) {
+#pragma omp parallel for
+		for (int y = 0; y < height; y++) {
 			Ray ray = camera.GetCameraRay(x, y);
 			Payload payload = TraceRay(ray, raytracing_depth);
 			SetPixel(x, y, payload.color);

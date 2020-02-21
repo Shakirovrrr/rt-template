@@ -43,7 +43,6 @@ group "01. Ray generation"
       links "Ray generation lib"
       debugargs { "--benchmark-samples", "25" }
       files {"tests/ray_generation_tests.cpp"}
---]]
 
 group "02. Moller-Trumbore algorithm"
    project "Moller-Trumbore algorithm lib"
@@ -71,8 +70,8 @@ group "02. Moller-Trumbore algorithm"
       links "Moller-Trumbore algorithm lib"
       debugargs { "--benchmark-samples", "25" }
       files {"tests/mt_algorithm_tests.cpp"}
+--]]
 
---[[
 group "03. Lighting"
    project "Lighting lib"
       kind "StaticLib"
@@ -102,6 +101,7 @@ group "03. Lighting"
       debugargs { "--benchmark-samples", "25" }
       files {"tests/lighting_tests.cpp"}
 
+--[[
 group "04. Shadow rays"
    project "ShadowRays lib"
       kind "StaticLib"
