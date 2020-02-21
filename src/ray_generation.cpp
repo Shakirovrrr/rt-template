@@ -69,7 +69,7 @@ void Camera::SetPosition(float3 position) {
 }
 
 void Camera::SetDirection(float3 direction) {
-	this->direction = linalg::normalize(direction);
+	this->direction = linalg::normalize(direction - position);
 }
 
 void Camera::SetUp(float3 approx_up) {
@@ -85,10 +85,10 @@ void Camera::SetRenderTargetSize(short width, short height) {
 Ray Camera::GetCameraRay(short x, short y) const {
 	float aspectRatio = static_cast<float>(width) / static_cast<float>(height);
 
-	float u = (2.0f * (static_cast<float>(x) + 0.5f) / static_cast<float>(width) - 1.0f);
-	float v = (2.0f * (static_cast<float>(y) + 0.5f) / static_cast<float>(height) - 1.0f) * aspectRatio;
+	float u = (2.0f * (static_cast<float>(x) + 0.5f) / static_cast<float>(width) - 1.0f) * aspectRatio;
+	float v = (2.0f * (static_cast<float>(y) + 0.5f) / static_cast<float>(height) - 1.0f);
 
-	float3 direction = this->direction + u * right + v * up;
+	float3 direction = this->direction + u * right - v * up;
 
 	return Ray(this->position, direction);
 }
