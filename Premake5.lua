@@ -225,7 +225,6 @@ group "07. Anti-aliasing"
       links "AntiAliasing lib"
       debugargs { "--benchmark-samples", "25" }
       files {"tests/anti_aliasing_tests.cpp"}
---]]
 
 group "08. AABB"
    project "AABB lib"
@@ -261,8 +260,8 @@ group "08. AABB"
       links "AABB lib"
       debugargs { "--benchmark-samples", "5" }
       files {"tests/aabb_tests.cpp"}
+--]]
 
---[[
 group "09. BVH"
    project "BVH lib"
       kind "StaticLib"
@@ -298,6 +297,7 @@ group "09. BVH"
       debugargs { "--benchmark-samples", "25" }
       files {"tests/bvh_tests.cpp"}
 
+--[[
 group "10. Denoising"
    project "Denoising lib"
       kind "StaticLib"
