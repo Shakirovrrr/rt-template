@@ -260,7 +260,6 @@ group "08. AABB"
       links "AABB lib"
       debugargs { "--benchmark-samples", "5" }
       files {"tests/aabb_tests.cpp"}
---]]
 
 group "09. BVH"
    project "BVH lib"
@@ -296,8 +295,8 @@ group "09. BVH"
       links "BVH lib"
       debugargs { "--benchmark-samples", "25" }
       files {"tests/bvh_tests.cpp"}
+--]]
 
---[[
 group "10. Denoising"
    project "Denoising lib"
       kind "StaticLib"
@@ -322,4 +321,3 @@ group "10. Denoising"
       includedirs { "src" }
       links "Denoising lib"
       files { "src/denoising_main.cpp" }
---]]
