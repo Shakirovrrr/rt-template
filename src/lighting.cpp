@@ -128,11 +128,11 @@ Payload Lighting::Hit(const Ray &ray, const IntersectableData &data, const Mater
 	for (auto const &light : lights) {
 		Ray toLight(x, light->position - x);
 
-		payload.color += light->color * triangle->diffuse_color 
+		payload.color += light->color * triangle->diffuse_color
 			* std::max(0.0f, linalg::dot(normal, toLight.direction));
 
 		float3 reflectionDir = 2.0f * linalg::dot(normal, toLight.direction) * normal - toLight.direction;
-		payload.color += light->color * triangle->specular_color 
+		payload.color += light->color * triangle->specular_color
 			* std::powf(std::max(0.0f, linalg::dot(ray.direction, reflectionDir)), triangle->specular_exponent);
 	}
 
