@@ -192,7 +192,6 @@ group "06. Refraction"
       links "Refraction lib"
       debugargs { "--benchmark-samples", "5" }
       files {"tests/refraction_tests.cpp"}
---]]
 
 group "07. Anti-aliasing"
    project "AntiAliasing lib"
@@ -226,8 +225,8 @@ group "07. Anti-aliasing"
       links "AntiAliasing lib"
       debugargs { "--benchmark-samples", "25" }
       files {"tests/anti_aliasing_tests.cpp"}
+--]]
 
---[[
 group "08. AABB"
    project "AABB lib"
       kind "StaticLib"
@@ -263,6 +262,7 @@ group "08. AABB"
       debugargs { "--benchmark-samples", "5" }
       files {"tests/aabb_tests.cpp"}
 
+--[[
 group "09. BVH"
    project "BVH lib"
       kind "StaticLib"
