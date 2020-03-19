@@ -50,20 +50,10 @@ Payload Denoising::Hit(const Ray &ray, const IntersectableData &data, const Mate
 		}
 
 		Ray toLight(x, randomDir);
-		// float toLightDist = linalg::length(light->position - x);
 		Payload lightPayload = TraceRay(toLight, raytrace_depth - 1);
-
-		/*float traceShadow = TraceShadowRay(toLight, toLightDist);
-		if (std::fabs(traceShadow - toLightDist) > 0.001f) {
-			continue;
-		}*/
 
 		color += lightPayload.color * triangle->diffuse_color
 			* std::max(0.0f, linalg::dot(normal, toLight.direction));
-
-		/*float3 reflectionDir = 2.0f * linalg::dot(normal, toLight.direction) * normal - toLight.direction;
-		payload.color += light->color * triangle->specular_color
-			* std::powf(std::max(0.0f, linalg::dot(ray.direction, reflectionDir)), triangle->specular_exponent);*/
 	}
 
 	payload.color += color / nSecondaryRays;
