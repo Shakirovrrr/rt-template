@@ -90,6 +90,18 @@ int Denoising::GetRandom(const int thread_num) const {
 	return distribution(generator);
 }
 
+float GammaCorrection(float x, float gamma, float a) {
+	return std::min(1.0f, std::powf(x, gamma) * a);
+}
+
+float3 GammaCorrection(float3 v, float gamma, float a) {
+	return float3 { GammaCorrection(v.x, gamma, a), GammaCorrection(v.y, gamma, a), GammaCorrection(v.z, gamma, a) };
+}
+
+float3 GammaCorrection(float3 v, float gamma) {
+	return GammaCorrection(v, gamma, 1.0f);
+}
+
 void Denoising::DrawScene(int max_frame_number) {
 	camera.SetRenderTargetSize(width, height);
 
@@ -109,7 +121,9 @@ void Denoising::DrawScene(int max_frame_number) {
 
 	for (short x = 0; x < width; x++) {
 		for (short y = 0; y < height; y++) {
-			SetPixel(x, y, GetHistory(x, y) / max_frame_number);
+			float3 history = GetHistory(x, y) / max_frame_number;
+			history = GammaCorrection(history, 0.25f);
+			SetPixel(x, y, history);
 		}
 	}
 }
